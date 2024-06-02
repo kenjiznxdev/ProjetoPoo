@@ -1,3 +1,4 @@
+import java.util.Calendar;
 import java.util.Date;
 
 public class Reserva {
@@ -5,12 +6,14 @@ public class Reserva {
     private Quarto quarto;
     private Date dataEntrada;
     private Date dataSaida;
+    private int numeroDeDias; //adicionado como solicitado
 
-    public Reserva(Cliente cliente, Quarto quarto, Date dataEntrada, Date dataSaida){
+    public Reserva(Cliente cliente, Quarto quarto, Date dataEntrada, Date dataSaida, int numeroDeDias){
         this.cliente = cliente;
         this.quarto = quarto;
         this.dataEntrada = dataEntrada;
         this.dataSaida = dataSaida;
+        this.numeroDeDias = numeroDeDias;
     }
 
     // get e set do cliente
@@ -49,6 +52,24 @@ public class Reserva {
         this.dataSaida = dataSaida;
     }
 
+        // get e set da logica implementada sobre numero de dias
+    public int getNumeroDeDias() {
+        return numeroDeDias;
+    }
+
+    public void setNumeroDeDias(int numeroDeDias) {
+        this.numeroDeDias = numeroDeDias;
+        this.dataSaida = calcularDataSaida(this.dataEntrada, numeroDeDias);
+    }
+
+        // logica
+     private Date calcularDataSaida(Date dataEntrada, int numeroDeDias) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dataEntrada);
+        calendar.add(Calendar.DAY_OF_MONTH, numeroDeDias);
+        return calendar.getTime();
+    }
+    
     @Override
     public String toString() {
         return "** Reserva ** Cliente: " + cliente.getNome() + ", Quarto: " + quarto.getNumero() +

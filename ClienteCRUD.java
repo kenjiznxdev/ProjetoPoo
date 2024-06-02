@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class ClienteCRUD {
-    private List<Cliente> clientes;
+    private final List<Cliente> clientes;
 
     public ClienteCRUD() {
         clientes = new ArrayList<>();
@@ -71,11 +72,18 @@ public class ClienteCRUD {
 
         clienteCRUD.removerCliente("66555444333");
 
-        System.out.println("Lista de hóspedes após remoção:");
+        System.out.println("Lista de hóspedes após atualização de remoção:");
         clienteCRUD.listarClientes();
 
-        Quarto quarto1 = new Quarto(203, "Solteiro", 180.0, 1);
-        Reserva reserva1 = new Reserva(cliente1, quarto1, new Date(), new Date());
+        // Criação de quarto e reserva com a logica implementada
+        Quarto quarto1 = new Quarto(202, "Casal", 350.0, 2);
+        
+        Calendar cal = Calendar.getInstance();
+        cal.set(2024, Calendar.NOVEMBER, 13); // setando a data de entrada do cliente
+        Date dataEntrada = cal.getTime();
+        
+        int numeroDeDias = 3; // entrada do numero de dias que o cliente vai ficar
+        Reserva reserva1 = new Reserva(cliente1, quarto1, dataEntrada, dataEntrada, numeroDeDias);
 
         System.out.println("Detalhes da Reserva:");
         System.out.println(reserva1);
